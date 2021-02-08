@@ -1,0 +1,47 @@
+﻿@model SitefinityWebApp.Mvc.Models.LoginViewModel
+
+
+@using System.Linq.Expressions;
+@using Telerik.Sitefinity.UI.MVC;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Modules.Pages;
+@using Telerik.Sitefinity.Services;
+@using SitefinityWebApp.Mvc.Models;
+
+
+@*Add scripts and stylesheets*@
+@Html.Script(ScriptRef.JQuery, "top", true)
+@Html.Script("//ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.js", "top", true)
+@Html.Script("//ajax.aspnetcdn.com/ajax/mvc/4.0/jquery.validate.unobtrusive.min.js", "top", true)
+
+<div class="m-0">
+    @using (Html.BeginFormSitefinity())
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.ValidationSummary(true);
+
+        <div>
+            <div>
+                <h3>Login</h3>
+
+                <div class="form-group">
+                    <label for="Username">Email </label>
+                    @Html.TextBoxFor(model => model.Username, new { maxlength = "100", autocomplete = "email" })
+                    @Html.ValidationMessageFor(model => model.Username, "", new { @class = "form-error is-visible" })
+                </div>
+
+                <div class="form-group">
+                    <label for="Password">Password </label>
+                    @Html.TextBoxFor(model => model.Password, new { maxlength = "100", autocomplete = "password" })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "form-error is-visible" })
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" @(SystemManager.IsDesignMode ? "disabled" : "")>Login</button>
+                </div>
+
+            </div>
+        </div>
+    }
+</div>
